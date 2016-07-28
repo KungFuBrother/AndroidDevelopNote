@@ -62,12 +62,13 @@ public class FragmentContainerActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        titleTextView.setText(title);
         try {
             Fragment fragment = (Fragment) Class.forName(fragmentClass).newInstance();
-            fragment.setArguments(fragmentArgument);
             if (fragmentArgument != null) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, fragment).commit();
+                fragment.setArguments(fragmentArgument);
             }
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, fragment).commit();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
