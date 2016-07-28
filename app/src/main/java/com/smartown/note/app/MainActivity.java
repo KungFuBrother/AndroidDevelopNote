@@ -10,7 +10,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        findViews(R.layout.activity_main);
         jump("Hello", HelloFragment.class);
         finish();
     }
@@ -21,8 +21,8 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void findViews(@LayoutRes int contentLayout) {
-
+    protected void findViews(@LayoutRes int contentView) {
+        setContentView(contentView);
     }
 
     @Override

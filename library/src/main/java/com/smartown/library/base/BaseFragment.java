@@ -43,8 +43,9 @@ public abstract class BaseFragment extends Fragment {
         return contentView;
     }
 
-    public void setContentView(@LayoutRes int contentLayout) {
-        contentView = layoutInflater.inflate(contentLayout, null);
+    public void findViews(@LayoutRes int contentView) {
+        this.contentView = layoutInflater.inflate(contentView, null);
+        findViews();
     }
 
     public View findViewById(@IdRes int viewId) {

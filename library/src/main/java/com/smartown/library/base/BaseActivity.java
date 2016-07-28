@@ -16,7 +16,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
     protected abstract void init();
 
-    protected abstract void findViews(@LayoutRes int contentLayout);
+    protected abstract void findViews(@LayoutRes int contentView);
 
     protected abstract void initViews();
 

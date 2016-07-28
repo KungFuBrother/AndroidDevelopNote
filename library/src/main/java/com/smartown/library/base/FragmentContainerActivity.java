@@ -50,8 +50,8 @@ public class FragmentContainerActivity extends BaseActivity {
     }
 
     @Override
-    protected void findViews(@LayoutRes int contentLayout) {
-        setContentView(contentLayout);
+    protected void findViews(@LayoutRes int contentView) {
+        setContentView(contentView);
 
         backButton = (TextView) findViewById(R.id.container_title_back);
         titleTextView = (TextView) findViewById(R.id.container_title_text);

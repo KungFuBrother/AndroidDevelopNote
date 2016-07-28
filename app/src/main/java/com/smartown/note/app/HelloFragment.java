@@ -13,8 +13,7 @@ public class HelloFragment extends BaseFragment {
 
     @Override
     protected void init() {
-        setContentView(R.layout.fragment_hello);
-        findViews();
+        findViews(R.layout.fragment_hello);
     }
 
     @Override
