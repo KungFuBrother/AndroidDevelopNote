@@ -3,6 +3,7 @@ package com.smartown.library.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
 
 /**
@@ -34,6 +35,10 @@ public abstract class BaseActivity extends FragmentActivity {
 
     public void jump(String title, Class fragmentClass) {
         jump(title, fragmentClass, null);
+    }
+
+    public void jump(@StringRes int titleResId, Class fragmentClass) {
+        jump(getString(titleResId), fragmentClass, null);
     }
 
 }

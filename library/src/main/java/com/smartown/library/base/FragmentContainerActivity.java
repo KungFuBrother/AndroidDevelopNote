@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.smartown.library.R;
@@ -19,7 +20,7 @@ import com.smartown.library.R;
  */
 public class FragmentContainerActivity extends BaseActivity {
 
-    private TextView backButton;
+    private ImageView backButton;
     private TextView titleTextView;
 
     private String title;
@@ -53,7 +54,7 @@ public class FragmentContainerActivity extends BaseActivity {
     protected void findViews(@LayoutRes int contentView) {
         setContentView(contentView);
 
-        backButton = (TextView) findViewById(R.id.container_title_back);
+        backButton = (ImageView) findViewById(R.id.container_title_back);
         titleTextView = (TextView) findViewById(R.id.container_title_text);
 
         initViews();

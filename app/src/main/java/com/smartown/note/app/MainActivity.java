@@ -11,7 +11,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         findViews(R.layout.activity_main);
-        jump("Hello", HelloFragment.class);
+        jump(R.string.app_name, MainFragment.class);
         finish();
     }
 
