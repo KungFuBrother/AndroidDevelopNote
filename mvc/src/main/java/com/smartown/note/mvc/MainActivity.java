@@ -1,4 +1,4 @@
-package com.smartown.note.app;
+package com.smartown.note.mvc;
 
 import com.smartown.library.base.BaseActivity;
 
@@ -6,8 +6,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        jump(R.string.app_name, MainFragment.class);
-        finish();
+
     }
 
     @Override

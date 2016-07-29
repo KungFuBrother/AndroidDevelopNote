@@ -2,20 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/common_list_item"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/common_item_height"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:paddingLeft="@dimen/common_padding"
+        android:paddingRight="@dimen/common_padding"
         android:singleLine="true"
-        android:textSize="16dp" />
+        android:textSize="@dimen/common_big_text" />
 
     <include layout="@layout/common_line" />
 

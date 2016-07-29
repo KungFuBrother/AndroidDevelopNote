@@ -22,14 +22,6 @@ public abstract class BaseFragment extends Fragment {
     protected LayoutInflater layoutInflater;
     protected View contentView;
 
-    protected abstract void init();
-
-    protected abstract void findViews();
-
-    protected abstract void initViews();
-
-    protected abstract void registerViews();
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +35,19 @@ public abstract class BaseFragment extends Fragment {
         return contentView;
     }
 
+    protected abstract void init();
+
+    protected abstract void findViews();
+
+    protected abstract void initViews();
+
+    protected abstract void registerViews();
+
     public void findViews(@LayoutRes int contentView) {
         this.contentView = layoutInflater.inflate(contentView, null);
         findViews();
+        initViews();
+        registerViews();
     }
 
     public View findViewById(@IdRes int viewId) {
@@ -68,6 +70,10 @@ public abstract class BaseFragment extends Fragment {
 
     public BaseActivity getBaseActivity() {
         return (BaseActivity) getActivity();
+    }
+
+    public FragmentContainerActivity getContainerActivity() {
+        return (FragmentContainerActivity) getActivity();
     }
 
 }

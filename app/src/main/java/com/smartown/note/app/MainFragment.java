@@ -51,8 +51,6 @@ public class MainFragment extends BaseFragment {
     @Override
     protected void findViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        initViews();
-        registerViews();
     }
 
     @Override
