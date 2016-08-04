@@ -39,6 +39,4 @@
 
     </LinearLayout>
 
-    <include layout="@layout/common_line" />
-
 </LinearLayout>

@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 
 /**
  * 作者：Tiger
- * <p/>
+ * <p>
  * 时间：2016-07-28 17:48
- * <p/>
+ * <p>
  * 描述：
  */
 public abstract class BaseFragment extends Fragment {

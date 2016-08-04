@@ -1,17 +1,15 @@
 package com.smartown.library.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
 
 /**
  * 作者：Tiger
- * <p/>
+ * <p>
  * 时间：2016-07-28 17:28
- * <p/>
+ * <p>
  * 描述：
  */
 public abstract class BaseActivity extends FragmentActivity {

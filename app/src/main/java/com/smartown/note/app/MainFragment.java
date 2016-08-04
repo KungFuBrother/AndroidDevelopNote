@@ -17,9 +17,9 @@ import java.util.List;
 
 /**
  * 作者：Tiger
- * <p/>
+ * <p>
  * 时间：2016-07-28 17:58
- * <p/>
+ * <p>
  * 描述：
  */
 public class MainFragment extends BaseFragment implements OnItemClickListener {
