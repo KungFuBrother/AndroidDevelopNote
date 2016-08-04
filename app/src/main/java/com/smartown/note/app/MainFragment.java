@@ -26,7 +26,7 @@ public class MainFragment extends BaseFragment implements OnItemClickListener {
 
     private RecyclerView recyclerView;
     private List<ModelMenuItem> menuItems;
-    private ValueGetter<ModelMenuItem> valueGetter;
+    private ValueGetter valueGetter;
 
     @Override
     public void onResume() {
@@ -36,19 +36,22 @@ public class MainFragment extends BaseFragment implements OnItemClickListener {
 
     @Override
     protected void init() {
-        valueGetter = new ValueGetter<ModelMenuItem>() {
+        valueGetter = new ValueGetter() {
+
             @Override
-            public String getValue(ModelMenuItem menuItem) {
-                return menuItem.getLable();
+            public String getValue(int position) {
+                return menuItems.get(position).getLable();
             }
 
             @Override
-            public int getColor(ModelMenuItem menuItem) {
-                if (!Tool.isAppInstalled(getActivity(), menuItem.getPackageName())) {
+            public int getColor(int position) {
+                String packageName = menuItems.get(position).getPackageName();
+                if (!Tool.isAppInstalled(getActivity(), packageName)) {
                     return Color.GRAY;
                 }
                 return Color.BLACK;
             }
+
         };
         findViews(R.layout.common_recycler_list);
     }
@@ -73,7 +76,7 @@ public class MainFragment extends BaseFragment implements OnItemClickListener {
         menuItems.add(new ModelMenuItem("MVC", "com.smartown.note.mvc"));
         menuItems.add(new ModelMenuItem("MVP", "com.smartown.note.mvp"));
         menuItems.add(new ModelMenuItem("MVVM", "com.smartown.note.mvvm"));
-        CommonAdapter<ModelMenuItem> adapter = new CommonAdapter<>(getActivity(), menuItems);
+        CommonAdapter adapter = new CommonAdapter(getActivity(), menuItems);
         adapter.setValueGetter(valueGetter);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);

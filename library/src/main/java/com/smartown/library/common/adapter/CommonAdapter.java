@@ -13,14 +13,14 @@ import java.util.List;
 /**
  * Created by Tiger on 2016-07-07.
  */
-public class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHolder> {
+public class CommonAdapter extends RecyclerView.Adapter<CommonViewHolder> {
 
     private Context context;
-    private List<T> dataTList;
-    private ValueGetter<T> valueGetter;
+    private List dataTList;
+    private ValueGetter valueGetter;
     private OnItemClickListener onItemClickListener;
 
-    public CommonAdapter(Context context, List<T> dataTList) {
+    public CommonAdapter(Context context, List dataTList) {
         this.context = context;
         this.dataTList = dataTList;
     }
@@ -34,8 +34,8 @@ public class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHolder> {
     public void onBindViewHolder(CommonViewHolder holder, final int position) {
         if (valueGetter != null) {
             //通过内容获取工具取值
-            holder.getTextView().setText(valueGetter.getValue(dataTList.get(position)));
-            holder.getTextView().setTextColor(valueGetter.getColor(dataTList.get(position)));
+            holder.getTextView().setText(valueGetter.getValue(position));
+            holder.getTextView().setTextColor(valueGetter.getColor(position));
         }
         if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +57,7 @@ public class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHolder> {
      *
      * @param valueGetter
      */
-    public void setValueGetter(ValueGetter<T> valueGetter) {
+    public void setValueGetter(ValueGetter valueGetter) {
         this.valueGetter = valueGetter;
     }
 

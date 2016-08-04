@@ -38,19 +38,19 @@ public class MainFragment extends BaseFragment implements OnItemClickListener {
     private List<EntityWeChatNews> newses;
     private WeChatOperator operator;
     private Gson gson;
-    private CommonAdapter<EntityWeChatNews> adapter;
-    private ValueGetter<EntityWeChatNews> valueGetter;
+    private CommonAdapter adapter;
+    private ValueGetter valueGetter;
 
     @Override
     protected void init() {
         newses = new ArrayList<>();
         operator = new WeChatOperator();
         gson = new Gson();
-        adapter = new CommonAdapter<EntityWeChatNews>(getActivity(), newses);
-        valueGetter = new ValueGetter<EntityWeChatNews>() {
+        adapter = new CommonAdapter(getActivity(), newses);
+        valueGetter = new ValueGetter() {
             @Override
-            public String getValue(EntityWeChatNews news) {
-                return news.getTitle();
+            public String getValue(int position) {
+                return newses.get(position).getTitle();
             }
         };
         adapter.setValueGetter(valueGetter);
