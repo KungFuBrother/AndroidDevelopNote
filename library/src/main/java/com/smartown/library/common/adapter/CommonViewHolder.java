@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.smartown.library.R;
+import com.smartown.note.library.R;
 
 /**
  * Created by Tiger on 2016-07-07.

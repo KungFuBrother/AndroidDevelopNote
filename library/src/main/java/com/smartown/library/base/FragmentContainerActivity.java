@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.smartown.library.R;
+import com.smartown.note.library.R;
 
 import java.lang.reflect.Field;
 
