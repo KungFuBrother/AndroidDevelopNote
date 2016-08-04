@@ -37,22 +37,4 @@ public abstract class BaseActivity extends FragmentActivity {
         registerViews();
     }
 
-    public void jump(String title, Class fragmentClass, Bundle fragmentArgument) {
-        Intent intent = new Intent(BaseActivity.this, FragmentContainerActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("fragmentClass", fragmentClass.getName());
-        if (fragmentArgument != null) {
-            intent.putExtra("fragmentArgument", fragmentArgument);
-        }
-        startActivity(intent);
-    }
-
-    public void jump(String title, Class fragmentClass) {
-        jump(title, fragmentClass, null);
-    }
-
-    public void jump(@StringRes int titleResId, Class fragmentClass) {
-        jump(getString(titleResId), fragmentClass, null);
-    }
-
 }

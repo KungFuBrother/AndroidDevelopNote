@@ -1,12 +1,13 @@
 package com.smartown.note.app;
 
 import com.smartown.library.base.BaseActivity;
+import com.smartown.library.common.tool.Tool;
 
 public class MainActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        jump(R.string.app_name, MainFragment.class);
+        Tool.jump(MainActivity.this, getString(R.string.app_name), MainFragment.class);
         finish();
     }
 

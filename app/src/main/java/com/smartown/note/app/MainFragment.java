@@ -1,6 +1,6 @@
 package com.smartown.note.app;
 
-import android.support.v4.app.Fragment;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -8,6 +8,8 @@ import com.smartown.library.base.BaseFragment;
 import com.smartown.library.common.adapter.CommonAdapter;
 import com.smartown.library.common.adapter.OnItemClickListener;
 import com.smartown.library.common.adapter.ValueGetter;
+import com.smartown.library.common.tool.ToastTool;
+import com.smartown.library.common.tool.Tool;
 import com.smartown.note.app.model.ModelMenuItem;
 
 import java.util.ArrayList;
@@ -20,31 +22,34 @@ import java.util.List;
  * <p/>
  * 描述：
  */
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment implements OnItemClickListener {
 
     private RecyclerView recyclerView;
     private List<ModelMenuItem> menuItems;
-    private CommonAdapter<ModelMenuItem> adapter;
+    private ValueGetter<ModelMenuItem> valueGetter;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initMenuItems();
+    }
 
     @Override
     protected void init() {
-        menuItems = new ArrayList<>();
-        menuItems.add(new ModelMenuItem("MVC", Fragment.class));
-        menuItems.add(new ModelMenuItem("MVP", Fragment.class));
-        menuItems.add(new ModelMenuItem("MVVM", Fragment.class));
-        adapter = new CommonAdapter<>(getActivity(), menuItems);
-        adapter.setValueGetter(new ValueGetter<ModelMenuItem>() {
+        valueGetter = new ValueGetter<ModelMenuItem>() {
             @Override
-            public String getValue(ModelMenuItem modelMenuItem) {
-                return modelMenuItem.getLable();
+            public String getValue(ModelMenuItem menuItem) {
+                return menuItem.getLable();
             }
-        });
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
 
+            @Override
+            public int getColor(ModelMenuItem menuItem) {
+                if (!Tool.isAppInstalled(getActivity(), menuItem.getPackageName())) {
+                    return Color.GRAY;
+                }
+                return Color.BLACK;
             }
-        });
+        };
         findViews(R.layout.common_recycler_list);
     }
 
@@ -56,7 +61,6 @@ public class MainFragment extends BaseFragment {
     @Override
     protected void initViews() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -64,4 +68,24 @@ public class MainFragment extends BaseFragment {
 
     }
 
+    private void initMenuItems() {
+        menuItems = new ArrayList<>();
+        menuItems.add(new ModelMenuItem("MVC", "com.smartown.note.mvc"));
+        menuItems.add(new ModelMenuItem("MVP", "com.smartown.note.mvp"));
+        menuItems.add(new ModelMenuItem("MVVM", "com.smartown.note.mvvm"));
+        CommonAdapter<ModelMenuItem> adapter = new CommonAdapter<>(getActivity(), menuItems);
+        adapter.setValueGetter(valueGetter);
+        adapter.setOnItemClickListener(this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        String packageName = menuItems.get(position).getPackageName();
+        if (Tool.isAppInstalled(getActivity(), packageName)) {
+            Tool.startApp(getActivity(), packageName);
+        } else {
+            ToastTool.show("未安装" + packageName);
+        }
+    }
 }

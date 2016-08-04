@@ -1,5 +1,7 @@
 package com.smartown.library.common.adapter;
 
+import android.graphics.Color;
+
 /**
  * Created by Tiger on 2016-07-07.
  * <p>
@@ -17,6 +19,10 @@ public class ValueGetter<T> {
      */
     public String getValue(T t) {
         return "";
+    }
+
+    public int getColor(T t) {
+        return Color.BLACK;
     }
 
 }

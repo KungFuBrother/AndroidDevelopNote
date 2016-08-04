@@ -35,6 +35,7 @@ public class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHolder> {
         if (valueGetter != null) {
             //通过内容获取工具取值
             holder.getTextView().setText(valueGetter.getValue(dataTList.get(position)));
+            holder.getTextView().setTextColor(valueGetter.getColor(dataTList.get(position)));
         }
         if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

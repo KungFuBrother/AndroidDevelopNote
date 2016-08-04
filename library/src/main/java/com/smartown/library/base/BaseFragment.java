@@ -1,6 +1,5 @@
 package com.smartown.library.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -52,20 +51,6 @@ public abstract class BaseFragment extends Fragment {
 
     public View findViewById(@IdRes int viewId) {
         return contentView.findViewById(viewId);
-    }
-
-    public void jump(String title, Class fragmentClass, Bundle fragmentArgument) {
-        Intent intent = new Intent(getBaseActivity(), FragmentContainerActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("fragmentClass", fragmentClass.getName());
-        if (fragmentArgument != null) {
-            intent.putExtra("fragmentArgument", fragmentArgument);
-        }
-        startActivity(intent);
-    }
-
-    public void jump(String title, Class fragmentClass) {
-        jump(title, fragmentClass, null);
     }
 
     public BaseActivity getBaseActivity() {
