@@ -20,20 +20,18 @@ import rx.schedulers.Schedulers;
  */
 public class WeChatOperator {
 
-    // 使用IO线程处理, 主线程响应
-    private Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
-        @Override
-        public void call(Subscriber<? super String> subscriber) {
-            try {
-                subscriber.onNext(requestData());
-                subscriber.onCompleted();
-            } catch (IOException e) {
-                e.printStackTrace();
+    public void request(Subscriber<? super String> subscriber) {// 使用IO线程处理, 主线程响应
+        Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                try {
+                    subscriber.onNext(requestData());
+                    subscriber.onCompleted();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-    }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-
-    public void request(Subscriber<? super String> subscriber) {
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
         observable.subscribe(subscriber);
     }
 

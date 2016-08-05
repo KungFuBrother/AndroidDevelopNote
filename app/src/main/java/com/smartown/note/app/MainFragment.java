@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.smartown.library.base.BaseFragment;
-import com.smartown.library.common.adapter.CommonAdapter;
 import com.smartown.library.common.adapter.OnItemClickListener;
+import com.smartown.library.common.adapter.SimpleTextAdapter;
 import com.smartown.library.common.adapter.ValueGetter;
 import com.smartown.library.common.tool.ToastTool;
 import com.smartown.library.common.tool.Tool;
@@ -76,10 +76,14 @@ public class MainFragment extends BaseFragment implements OnItemClickListener {
         menuItems.add(new ModelMenuItem("MVC", "com.smartown.note.mvc"));
         menuItems.add(new ModelMenuItem("MVP", "com.smartown.note.mvp"));
         menuItems.add(new ModelMenuItem("MVVM", "com.smartown.note.mvvm"));
-        CommonAdapter adapter = new CommonAdapter(getActivity(), menuItems);
+//        CommonAdapter adapter = new CommonAdapter(getActivity(), menuItems);
+//        adapter.setValueGetter(valueGetter);
+//        adapter.setOnItemClickListener(this);
+//        recyclerView.setAdapter(adapter);
+        SimpleTextAdapter adapter = new SimpleTextAdapter(getActivity(), menuItems);
         adapter.setValueGetter(valueGetter);
         adapter.setOnItemClickListener(this);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter.getBasicAdapter());
     }
 
     @Override
@@ -91,4 +95,5 @@ public class MainFragment extends BaseFragment implements OnItemClickListener {
             ToastTool.show("未安装" + packageName);
         }
     }
+
 }

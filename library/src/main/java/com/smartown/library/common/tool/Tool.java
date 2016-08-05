@@ -9,9 +9,9 @@ import com.smartown.library.base.FragmentContainerActivity;
 
 /**
  * 作者：Tiger
- * <p/>
+ * <p>
  * 时间：2016-08-04 10:44
- * <p/>
+ * <p>
  * 描述：
  */
 public class Tool {
@@ -43,6 +43,22 @@ public class Tool {
 
     public static void jump(Context context, String title, Class fragmentClass) {
         jump(context, title, fragmentClass, null);
+    }
+
+    public static float getScreenDensity(Context context) {
+        return context.getResources().getDisplayMetrics().density;
+    }
+
+    public static int getScreenWidth(Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight(Context context) {
+        return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+    public static int convertDpToPx(Context context, int dpSize) {
+        return (int) (dpSize * getScreenDensity(context));
     }
 
 }
