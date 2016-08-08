@@ -7,5 +7,16 @@ package com.smartown.library.base;
  * <p/>
  * 描述：MVP中的Presenter
  */
-public interface BasePresenter {
+public class BasePresenter<T extends BaseView> {
+
+    private T view;
+
+    public BasePresenter(T view) {
+        this.view = view;
+    }
+
+    protected T getView() {
+        return view;
+    }
+
 }

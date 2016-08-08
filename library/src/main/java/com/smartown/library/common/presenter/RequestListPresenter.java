@@ -1,21 +1,17 @@
-package com.smartown.note.mvp.wechat;
+package com.smartown.library.common.presenter;
 
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.smartown.library.base.BasePresenter;
-import com.smartown.library.common.tool.RequestTool;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import okhttp3.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,18 +20,20 @@ import rx.schedulers.Schedulers;
 /**
  * 作者：Tiger
  * <p/>
- * 时间：2016-08-08 14:15
+ * 时间：2016-08-08 14:55
  * <p/>
- * 描述：Presenter
+ * 描述：
  */
-public class WeChatPresenter extends BasePresenter<WeChatView> {
+public abstract class RequestListPresenter extends BasePresenter<RequestListView> {
 
-    private List<WeChatNews> newses;
+    private Class aClass;
+    private List dataList;
     private Gson gson;
 
-    public WeChatPresenter(WeChatView view) {
+    public RequestListPresenter(RequestListView view, Class aClass) {
         super(view);
-        newses = new ArrayList<>();
+        this.aClass = aClass;
+        dataList = new ArrayList<>();
         gson = new Gson();
     }
 
@@ -43,12 +41,8 @@ public class WeChatPresenter extends BasePresenter<WeChatView> {
         Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                try {
-                    subscriber.onNext(requestData());
-                    subscriber.onCompleted();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                subscriber.onNext(requestData());
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
         observable.subscribe(new Subscriber<String>() {
@@ -72,9 +66,9 @@ public class WeChatPresenter extends BasePresenter<WeChatView> {
                             if (jsonArray != null) {
                                 int length = jsonArray.length();
                                 for (int i = 0; i < length; i++) {
-                                    newses.add(gson.fromJson(jsonArray.optString(i), WeChatNews.class));
+                                    dataList.add(gson.fromJson(jsonArray.optString(i), aClass));
                                 }
-                                getView().showData(newses);
+                                getView().showData(dataList);
                             }
                         }
                     } catch (JSONException e) {
@@ -85,12 +79,8 @@ public class WeChatPresenter extends BasePresenter<WeChatView> {
         });
     }
 
-    public String requestData() throws IOException {
-        String url = "http://apis.baidu.com/txapi/weixin/wxhot?num=10&rand=1&page=1";
-        HashMap<String, String> headers = new HashMap<>();
-        headers.put("apikey", "4e60f3cc2090dbc9a334dc662b824dba");
-        Response response = RequestTool.getInstance().get(url, headers);
-        return response.body().string();
-    }
+    public abstract String requestData();
+
+    public abstract String parseData();
 
 }

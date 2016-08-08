@@ -16,7 +16,7 @@ import java.util.List;
  * <p/>
  * 时间：2016-08-08 14:16
  * <p/>
- * 描述：
+ * 描述：View
  */
 public class WeChatFragment extends BaseFragment implements WeChatView {
 
