@@ -11,7 +11,7 @@ import java.util.List;
  * <p/>
  * 描述：
  */
-public interface RequestListView<T> extends BaseView {
+public interface BaseRequestView<T> extends BaseView {
 
     void showData(List<T> dataList);
 
