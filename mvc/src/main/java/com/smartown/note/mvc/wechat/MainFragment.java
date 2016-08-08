@@ -1,4 +1,4 @@
-package com.smartown.note.mvc.controller;
+package com.smartown.note.mvc.wechat;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,8 +15,6 @@ import com.smartown.library.common.adapter.BasicAdapter;
 import com.smartown.library.common.fragment.WebFragment;
 import com.smartown.library.common.tool.Tool;
 import com.smartown.note.mvc.R;
-import com.smartown.note.mvc.entity.EntityWeChatNews;
-import com.smartown.note.mvc.operator.WeChatOperator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,12 +30,12 @@ import rx.Subscriber;
  * <p/>
  * 时间：2016-08-04 16:09
  * <p/>
- * 描述：
+ * 描述：Controller
  */
 public class MainFragment extends BaseFragment implements AdapterHelper<NewsViewHolder> {
 
     private RecyclerView recyclerView;
-    private List<EntityWeChatNews> newses;
+    private List<WeChatNews> newses;
     private WeChatOperator operator;
     private Gson gson;
 
@@ -92,7 +90,7 @@ public class MainFragment extends BaseFragment implements AdapterHelper<NewsView
                             if (jsonArray != null) {
                                 int length = jsonArray.length();
                                 for (int i = 0; i < length; i++) {
-                                    newses.add(gson.fromJson(jsonArray.optString(i), EntityWeChatNews.class));
+                                    newses.add(gson.fromJson(jsonArray.optString(i), WeChatNews.class));
                                 }
                                 adapter.notifyDataSetChanged();
                             }
@@ -112,7 +110,7 @@ public class MainFragment extends BaseFragment implements AdapterHelper<NewsView
 
     @Override
     public void bindViewHolder(NewsViewHolder holder, int position) {
-        final EntityWeChatNews news = newses.get(position);
+        final WeChatNews news = newses.get(position);
         holder.getTitleTextView().setText(news.getTitle());
         Glide.with(this).load(news.getPicUrl()).asBitmap().into(holder.getImageView());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

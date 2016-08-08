@@ -1,4 +1,4 @@
-package com.smartown.note.mvc.controller;
+package com.smartown.note.mvp.wechat;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -7,14 +7,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.smartown.library.common.tool.Tool;
-import com.smartown.note.mvc.R;
+import com.smartown.note.mvp.R;
 
 /**
  * 作者：Tiger
  * <p/>
  * 时间：2016-08-05 13:40
  * <p/>
- * 描述：
+ * 描述：View
  */
 public class NewsViewHolder extends RecyclerView.ViewHolder {
 

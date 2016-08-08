@@ -34,13 +34,6 @@ public class FragmentContainerActivity extends BaseActivity {
     private int statusBarHeight = 0;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected void init() {
         Intent intent = getIntent();
         if (intent != null) {

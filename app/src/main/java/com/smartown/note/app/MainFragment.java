@@ -92,7 +92,7 @@ public class MainFragment extends BaseFragment implements OnItemClickListener {
         if (Tool.isAppInstalled(getActivity(), packageName)) {
             Tool.startApp(getActivity(), packageName);
         } else {
-            ToastTool.show("未安装" + packageName);
+            ToastTool.show("app " + packageName+" not installed");
         }
     }
 

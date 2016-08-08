@@ -1,13 +1,13 @@
-package com.smartown.note.mvc.entity;
+package com.smartown.note.mvp.wechat;
 
 /**
  * 作者：Tiger
  * <p/>
  * 时间：2016-08-04 20:34
  * <p/>
- * 描述：
+ * 描述：Model
  */
-public class EntityWeChatNews {
+public class WeChatNews {
 
     private String ctime;
     private String title;

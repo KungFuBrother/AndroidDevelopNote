@@ -1,4 +1,4 @@
-package com.smartown.note.mvc.operator;
+package com.smartown.note.mvc.wechat;
 
 import com.smartown.library.common.tool.RequestTool;
 
@@ -16,7 +16,7 @@ import rx.schedulers.Schedulers;
  * <p/>
  * 时间：2016-08-04 16:27
  * <p/>
- * 描述：
+ * 描述：Model
  */
 public class WeChatOperator {
 

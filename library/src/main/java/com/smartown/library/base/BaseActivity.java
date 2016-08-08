@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.view.WindowManager;
 
 /**
  * 作者：Tiger
@@ -16,6 +17,8 @@ public abstract class BaseActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         super.onCreate(savedInstanceState);
         init();
     }
