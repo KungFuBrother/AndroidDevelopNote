@@ -1,4 +1,4 @@
-package com.smartown.library.common.presenter;
+package com.smartown.library.common.mvp;
 
 import com.smartown.library.common.tool.RequestTool;
 

@@ -3,8 +3,8 @@ package com.smartown.note.mvp.wechat2;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.smartown.library.common.presenter.BaseRequestPresenter;
-import com.smartown.library.common.presenter.BaseRequestView;
+import com.smartown.library.common.mvp.BaseRequestPresenter;
+import com.smartown.library.common.mvp.BaseRequestView;
 import com.smartown.library.common.tool.RequestTool;
 import com.smartown.note.mvp.wechat.WeChatNews;
 

@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.smartown.library.base.BaseFragment;
-import com.smartown.library.common.presenter.BaseRequestView;
+import com.smartown.library.common.mvp.BaseRequestView;
 import com.smartown.note.mvp.R;
 import com.smartown.note.mvp.wechat.WeChatAdapter;
 import com.smartown.note.mvp.wechat.WeChatNews;
