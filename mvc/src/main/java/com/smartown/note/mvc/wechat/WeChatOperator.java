@@ -5,7 +5,6 @@ import com.smartown.library.common.tool.RequestTool;
 import java.io.IOException;
 import java.util.HashMap;
 
-import okhttp3.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -39,8 +38,7 @@ public class WeChatOperator {
         String url = "http://apis.baidu.com/txapi/weixin/wxhot?num=10&rand=1&page=1";
         HashMap<String, String> headers = new HashMap<>();
         headers.put("apikey", "4e60f3cc2090dbc9a334dc662b824dba");
-        Response response = RequestTool.getInstance().get(url, headers);
-        return response.body().string();
+        return RequestTool.getInstance().get(url, headers);
     }
 
 }

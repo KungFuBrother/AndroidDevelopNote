@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import okhttp3.Response;
-
 /**
  * 作者：Tiger
  * <p/>
@@ -42,8 +40,7 @@ public class WeChatPresenter extends BaseRequestPresenter<BaseRequestView<WeChat
         String url = "http://apis.baidu.com/txapi/weixin/wxhot?num=10&rand=1&page=1";
         HashMap<String, String> headers = new HashMap<>();
         headers.put("apikey", "4e60f3cc2090dbc9a334dc662b824dba");
-        Response response = RequestTool.getInstance().get(url, headers);
-        return response.body().string();
+        return RequestTool.getInstance().get(url, headers);
     }
 
     @Override
