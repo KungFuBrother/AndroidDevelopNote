@@ -12,16 +12,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.Request;
+
 /**
  * 作者：Tiger
- * <p/>
+ * <p>
  * 时间：2016-08-08 14:15
- * <p/>
+ * <p>
  * 描述：Presenter
  */
 public class WeChatPresenter extends BaseRequestPresenter<BaseRequestView<WeChatNews>> {
@@ -36,11 +37,11 @@ public class WeChatPresenter extends BaseRequestPresenter<BaseRequestView<WeChat
     }
 
     @Override
-    protected String requestData() throws IOException {
+    protected Request getRequest() {
         String url = "http://apis.baidu.com/txapi/weixin/wxhot?num=10&rand=1&page=1";
         HashMap<String, String> headers = new HashMap<>();
         headers.put("apikey", "4e60f3cc2090dbc9a334dc662b824dba");
-        return RequestTool.getInstance().get(url, headers);
+        return RequestTool.getInstance().getRequest(url, headers);
     }
 
     @Override

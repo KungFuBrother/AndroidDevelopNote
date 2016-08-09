@@ -10,21 +10,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 作者：Tiger
- * <p/>
+ * <p>
  * 时间：2016-08-08 14:15
- * <p/>
+ * <p>
  * 描述：Presenter
  */
 public class WeChatPresenter extends BasePresenter<WeChatView> {
@@ -38,19 +34,11 @@ public class WeChatPresenter extends BasePresenter<WeChatView> {
         gson = new Gson();
     }
 
-    public void request() {// 使用IO线程处理, 主线程响应
-        Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(Subscriber<? super String> subscriber) {
-                try {
-                    subscriber.onNext(requestData());
-                    subscriber.onCompleted();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-        observable.subscribe(new Subscriber<String>() {
+    public void request() {
+        String url = "http://apis.baidu.com/txapi/weixin/wxhot?num=10&rand=1&page=1";
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("apikey", "4e60f3cc2090dbc9a334dc662b824dba");
+        RequestTool.getInstance().get(url, headers, new Subscriber<String>() {
             @Override
             public void onCompleted() {
 
@@ -82,13 +70,6 @@ public class WeChatPresenter extends BasePresenter<WeChatView> {
                 }
             }
         });
-    }
-
-    public String requestData() throws IOException {
-        String url = "http://apis.baidu.com/txapi/weixin/wxhot?num=10&rand=1&page=1";
-        HashMap<String, String> headers = new HashMap<>();
-        headers.put("apikey", "4e60f3cc2090dbc9a334dc662b824dba");
-        return RequestTool.getInstance().get(url, headers);
     }
 
 }

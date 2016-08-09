@@ -1,17 +1,15 @@
 package com.smartown.library.common.presenter;
 
-import java.io.IOException;
+import com.smartown.library.common.tool.RequestTool;
 
-import rx.Observable;
+import okhttp3.Request;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 作者：Tiger
- * <p/>
+ * <p>
  * 时间：2016-08-08 14:55
- * <p/>
+ * <p>
  * 描述：
  */
 public abstract class BaseRequestPresenter<V extends BaseRequestView> {
@@ -22,20 +20,8 @@ public abstract class BaseRequestPresenter<V extends BaseRequestView> {
         this.view = view;
     }
 
-    public void request() {// 使用IO线程处理, 主线程响应
-        Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(Subscriber<? super String> subscriber) {
-                try {
-                    subscriber.onNext(requestData());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    subscriber.onError(e);
-                }
-                subscriber.onCompleted();
-            }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-        observable.subscribe(new Subscriber<String>() {
+    public void request() {
+        RequestTool.getInstance().get(getRequest(), new Subscriber<String>() {
             @Override
             public void onCompleted() {
                 requestComplete();
@@ -53,7 +39,7 @@ public abstract class BaseRequestPresenter<V extends BaseRequestView> {
         });
     }
 
-    protected abstract String requestData() throws IOException;
+    protected abstract Request getRequest();
 
     protected abstract void requestResponse(String result);
 
