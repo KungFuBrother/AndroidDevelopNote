@@ -1,5 +1,7 @@
 package com.smartown.note.app;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.graphics.Color;
 
 import com.smartown.library.base.BaseFragment;
@@ -10,9 +12,9 @@ import java.util.List;
 
 /**
  * 作者：Tiger
- * <p/>
+ * <p>
  * 时间：2016-07-28 17:58
- * <p/>
+ * <p>
  * 描述：
  */
 public class BingFragment extends BaseFragment {
@@ -60,7 +62,11 @@ public class BingFragment extends BaseFragment {
 
     @Override
     protected void registerViews() {
-
+        ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processInfos = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo processInfo : processInfos) {
+            System.out.println(processInfo.processName);
+        }
     }
 
     public static class Data {
