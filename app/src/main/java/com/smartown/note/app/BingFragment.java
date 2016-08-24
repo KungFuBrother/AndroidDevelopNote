@@ -10,9 +10,9 @@ import java.util.List;
 
 /**
  * 作者：Tiger
- * <p>
+ * <p/>
  * 时间：2016-07-28 17:58
- * <p>
+ * <p/>
  * 描述：
  */
 public class BingFragment extends BaseFragment {
@@ -23,11 +23,12 @@ public class BingFragment extends BaseFragment {
     @Override
     protected void init() {
         datas = new ArrayList<>();
-        datas.add(new Data(100, Color.RED));
-        datas.add(new Data(50, Color.BLACK));
-        datas.add(new Data(40, Color.BLUE));
-        datas.add(new Data(30, Color.GREEN));
-        datas.add(new Data(10, Color.GRAY));
+        datas.add(new Data(695, Color.parseColor("#9771c8")));
+        datas.add(new Data(474, Color.parseColor("#db4f82")));
+        datas.add(new Data(278, Color.parseColor("#b4c667")));
+        datas.add(new Data(176, Color.parseColor("#e56373")));
+        datas.add(new Data(123, Color.parseColor("#52b279")));
+        datas.add(new Data(116, Color.parseColor("#399960")));
         findViews(R.layout.fragment_bing);
     }
 

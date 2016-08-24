@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.smartown.library.widget.BingView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bing"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent">
+
+    <com.smartown.library.widget.BingView
+        android:id="@+id/bing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:strokeWidth="2dp" />
+
+</FrameLayout>
