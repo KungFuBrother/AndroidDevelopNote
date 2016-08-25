@@ -18,9 +18,9 @@ import java.util.List;
 
 /**
  * 作者：Tiger
- * <p/>
+ * <p>
  * 时间：2016-07-28 17:58
- * <p/>
+ * <p>
  * 描述：
  */
 public class MainFragment extends BaseFragment {
@@ -141,7 +141,8 @@ public class MainFragment extends BaseFragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                activityManager.moveTaskToFront(processes.get(position).pid, ActivityManager.MOVE_TASK_NO_USER_ACTION);
+                ActivityManager.RunningAppProcessInfo processInfo = processes.get(position);
+                Tool.startApp(getActivity(), processInfo.processName);
             }
         });
         recyclerView.setAdapter(adapter.getBasicAdapter());
