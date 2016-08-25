@@ -2,27 +2,33 @@ package com.smartown.note.app.model;
 
 /**
  * 作者：Tiger
- * <p>
+ * <p/>
  * 时间：2016-07-29 9:45
- * <p>
+ * <p/>
  * 描述：
  */
 public class ModelMenuItem {
 
-    private String lable;
-    private String packageName;
+    private int type;
+    private String label;
+    private String value;
 
-    public ModelMenuItem(String lable, String packageName) {
-        this.lable = lable;
-        this.packageName = packageName;
+    public ModelMenuItem(int type, String label, String value) {
+        this.type = type;
+        this.label = label;
+        this.value = value;
     }
 
-    public String getLable() {
-        return lable;
+    public String getLabel() {
+        return label;
     }
 
-    public String getPackageName() {
-        return packageName;
+    public String getValue() {
+        return value;
+    }
+
+    public int getType() {
+        return type;
     }
 
 }

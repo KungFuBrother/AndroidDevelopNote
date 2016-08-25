@@ -6,8 +6,6 @@ import android.view.View;
 
 import com.smartown.note.library.R;
 
-import java.util.List;
-
 /**
  * 作者：Tiger
  * <p>
@@ -19,13 +17,11 @@ public class SimpleTextAdapter implements AdapterHelper<CommonViewHolder> {
 
     private BasicAdapter basicAdapter;
     private Context context;
-    private List dataTList;
     private ValueGetter valueGetter;
     private OnItemClickListener onItemClickListener;
 
-    public SimpleTextAdapter(Context context, List dataTList) {
+    public SimpleTextAdapter(Context context) {
         this.context = context;
-        this.dataTList = dataTList;
         basicAdapter = new BasicAdapter(this);
     }
 
@@ -53,7 +49,10 @@ public class SimpleTextAdapter implements AdapterHelper<CommonViewHolder> {
 
     @Override
     public int getItemCount() {
-        return dataTList.size();
+        if (valueGetter != null) {
+            return valueGetter.getSize();
+        }
+        return 0;
     }
 
     @Override
@@ -71,6 +70,16 @@ public class SimpleTextAdapter implements AdapterHelper<CommonViewHolder> {
 
     public BasicAdapter getBasicAdapter() {
         return basicAdapter;
+    }
+
+    public interface ValueGetter {
+
+        String getValue(int position);
+
+        int getColor(int position);
+
+        int getSize();
+
     }
 
 }

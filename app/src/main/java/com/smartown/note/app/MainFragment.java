@@ -1,5 +1,7 @@
 package com.smartown.note.app;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import com.smartown.library.base.BaseFragment;
 import com.smartown.library.common.adapter.OnItemClickListener;
 import com.smartown.library.common.adapter.SimpleTextAdapter;
-import com.smartown.library.common.adapter.ValueGetter;
 import com.smartown.library.common.tool.ToastTool;
 import com.smartown.library.common.tool.Tool;
 import com.smartown.note.app.model.ModelMenuItem;
@@ -17,42 +18,24 @@ import java.util.List;
 
 /**
  * 作者：Tiger
- * <p>
+ * <p/>
  * 时间：2016-07-28 17:58
- * <p>
+ * <p/>
  * 描述：
  */
-public class MainFragment extends BaseFragment implements OnItemClickListener {
+public class MainFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
-    private List<ModelMenuItem> menuItems;
-    private ValueGetter valueGetter;
 
     @Override
     public void onResume() {
         super.onResume();
-        initMenuItems();
+        showApps();
+//        showRunningAppProcessInfo();
     }
 
     @Override
     protected void init() {
-        valueGetter = new ValueGetter() {
-
-            @Override
-            public String getValue(int position) {
-                return menuItems.get(position).getLable();
-            }
-
-            @Override
-            public int getColor(int position) {
-                String packageName = menuItems.get(position).getPackageName();
-                if (!Tool.isAppInstalled(getActivity(), packageName)) {
-                    return Color.GRAY;
-                }
-                return Color.BLACK;
-            }
-
-        };
         findViews(R.layout.common_recycler_list);
     }
 
@@ -68,32 +51,99 @@ public class MainFragment extends BaseFragment implements OnItemClickListener {
 
     @Override
     protected void registerViews() {
-
     }
 
-    private void initMenuItems() {
-        menuItems = new ArrayList<>();
-        menuItems.add(new ModelMenuItem("MVC", "com.smartown.note.mvc"));
-        menuItems.add(new ModelMenuItem("MVP", "com.smartown.note.mvp"));
-        menuItems.add(new ModelMenuItem("MVVM", "com.smartown.note.mvvm"));
+    private void showApps() {
+        final List<ModelMenuItem> menuItems = new ArrayList<>();
+        menuItems.add(new ModelMenuItem(0, "MVC", "com.smartown.note.mvc"));
+        menuItems.add(new ModelMenuItem(0, "MVP", "com.smartown.note.mvp"));
+        menuItems.add(new ModelMenuItem(0, "MVVM", "com.smartown.note.mvvm"));
+        menuItems.add(new ModelMenuItem(1, "饼状图", BingFragment.class.getName()));
 //        CommonAdapter adapter = new CommonAdapter(getActivity(), menuItems);
 //        adapter.setValueGetter(valueGetter);
 //        adapter.setOnItemClickListener(this);
 //        recyclerView.setAdapter(adapter);
-        SimpleTextAdapter adapter = new SimpleTextAdapter(getActivity(), menuItems);
-        adapter.setValueGetter(valueGetter);
-        adapter.setOnItemClickListener(this);
+        SimpleTextAdapter adapter = new SimpleTextAdapter(getActivity());
+        adapter.setValueGetter(new SimpleTextAdapter.ValueGetter() {
+
+            @Override
+            public String getValue(int position) {
+                return menuItems.get(position).getLabel();
+            }
+
+            @Override
+            public int getColor(int position) {
+                if (menuItems.get(position).getType() == 0) {
+                    String packageName = menuItems.get(position).getValue();
+                    if (!Tool.isAppInstalled(getActivity(), packageName)) {
+                        return Color.GRAY;
+                    }
+                }
+                return Color.BLACK;
+            }
+
+            @Override
+            public int getSize() {
+                return menuItems.size();
+            }
+
+        });
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                ModelMenuItem item = menuItems.get(position);
+                switch (item.getType()) {
+                    case 0:
+                        //Application
+                        String packageName = item.getValue();
+                        if (Tool.isAppInstalled(getActivity(), packageName)) {
+                            Tool.startApp(getActivity(), packageName);
+                        } else {
+                            ToastTool.show("app " + packageName + " not installed");
+                        }
+                        break;
+                    case 1:
+                        //Fragment
+                        try {
+                            Tool.jump(getActivity(), item.getLabel(), Class.forName(item.getValue()));
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                }
+            }
+        });
         recyclerView.setAdapter(adapter.getBasicAdapter());
     }
 
-    @Override
-    public void onItemClick(int position) {
-        String packageName = menuItems.get(position).getPackageName();
-        if (Tool.isAppInstalled(getActivity(), packageName)) {
-            Tool.startApp(getActivity(), packageName);
-        } else {
-            ToastTool.show("app " + packageName+" not installed");
-        }
-    }
+    private void showRunningAppProcessInfo() {
+        final ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        final List<ActivityManager.RunningAppProcessInfo> processes = activityManager.getRunningAppProcesses();
+        SimpleTextAdapter adapter = new SimpleTextAdapter(getActivity());
+        adapter.setValueGetter(new SimpleTextAdapter.ValueGetter() {
 
+            @Override
+            public String getValue(int position) {
+                return processes.get(position).processName;
+            }
+
+            @Override
+            public int getColor(int position) {
+                return Color.BLACK;
+            }
+
+            @Override
+            public int getSize() {
+                return processes.size();
+            }
+
+        });
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                activityManager.moveTaskToFront(processes.get(position).pid, ActivityManager.MOVE_TASK_NO_USER_ACTION);
+            }
+        });
+        recyclerView.setAdapter(adapter.getBasicAdapter());
+    }
 }
