@@ -1,1 +1,1 @@
-include ':app', ':library', ':mvc', ':mvp', ':bmob'
+include ':app', ':library', ':mvc', ':mvp'

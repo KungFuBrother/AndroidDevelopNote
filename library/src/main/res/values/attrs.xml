@@ -5,4 +5,10 @@
         <attr name="strokeColor" format="color" />
         <attr name="innerCircleRadius" format="float" />
     </declare-styleable>
+    <declare-styleable name="LEDView">
+        <attr name="ledColor" format="color" />
+        <attr name="ledNumber" format="string" />
+        <attr name="ledPointWidth" format="dimension" />
+        <attr name="ledIntervalWidth" format="dimension" />
+    </declare-styleable>
 </resources>
