@@ -32,6 +32,8 @@ public abstract class LEDView extends View {
     private int maxColumnSize;
     //每行的高度
     private int rowHeight;
+    private boolean autoScroll;
+    private boolean singleLine;
 
     public LEDView(Context context) {
         this(context, null);
@@ -47,12 +49,16 @@ public abstract class LEDView extends View {
         number = "";
         pointWidth = 4;
         intervalWidth = 1;
+        autoScroll = false;
+        singleLine = false;
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LEDView);
             color = typedArray.getColor(R.styleable.LEDView_ledColor, Color.BLACK);
             number = typedArray.getString(R.styleable.LEDView_ledNumber);
             pointWidth = typedArray.getDimensionPixelSize(R.styleable.LEDView_ledPointWidth, 4);
             intervalWidth = typedArray.getDimensionPixelSize(R.styleable.LEDView_ledIntervalWidth, 1);
+            autoScroll = typedArray.getBoolean(R.styleable.LEDView_ledAutoScroll, false);
+            singleLine = typedArray.getBoolean(R.styleable.LEDView_ledSingleLine, false);
             typedArray.recycle();
         }
         paint = new Paint();

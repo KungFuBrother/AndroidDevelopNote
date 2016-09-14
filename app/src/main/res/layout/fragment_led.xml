@@ -15,7 +15,7 @@
             app:ledColor="@color/navigation_bar_background"
             app:ledIntervalWidth="1px"
             app:ledNumber="@string/article"
-            app:ledPointWidth="2dp" />
+            app:ledPointWidth="8dp" />
 
     </LinearLayout>
 </ScrollView>

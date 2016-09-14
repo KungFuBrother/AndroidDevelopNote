@@ -10,5 +10,7 @@
         <attr name="ledNumber" format="string" />
         <attr name="ledPointWidth" format="dimension" />
         <attr name="ledIntervalWidth" format="dimension" />
+        <attr name="ledAutoScroll" format="dimension" />
+        <attr name="ledSingleLine" format="dimension" />
     </declare-styleable>
 </resources>
