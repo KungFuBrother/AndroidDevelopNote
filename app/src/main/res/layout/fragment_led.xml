@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <com.smartown.library.widget.LEDView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:ledColor="@color/colorPrimary"
-        app:ledIntervalWidth="1px"
-        app:ledNumber="0123456789.:"
-        app:ledPointWidth="4dp" />
+        android:orientation="vertical">
 
-    <com.smartown.library.widget.LEDView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:ledColor="@color/colorPrimary"
-        app:ledIntervalWidth="1px"
-        app:ledNumber="abcdefghijklm"
-        app:ledPointWidth="4dp" />
+        <com.smartown.library.widget.LetterLEDView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:ledColor="@color/navigation_bar_background"
+            app:ledIntervalWidth="1px"
+            app:ledNumber="@string/article"
+            app:ledPointWidth="2dp" />
 
-    <com.smartown.library.widget.LEDView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:ledColor="@color/colorPrimary"
-        app:ledIntervalWidth="1px"
-        app:ledNumber="nopqrstuvwxyz"
-        app:ledPointWidth="4dp" />
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
