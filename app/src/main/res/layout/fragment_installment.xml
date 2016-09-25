@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.smartown.library.widget.InstallmentView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        app:color="@color/colorAccent"
+        app:lineHeight="1dp"
+        app:partCount="12"
+        app:partWidth="16dp"
+        app:selectedColor="@color/colorPrimary"
+        app:selectedPartWidth="16dp"
+        app:textSize="10dp" />
+
+</FrameLayout>

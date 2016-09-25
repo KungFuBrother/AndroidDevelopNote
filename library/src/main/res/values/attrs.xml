@@ -13,4 +13,13 @@
         <attr name="ledAutoScroll" format="dimension" />
         <attr name="ledSingleLine" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="InstallmentView">
+        <attr name="partCount" format="integer" />
+        <attr name="partWidth" format="dimension" />
+        <attr name="selectedPartWidth" format="dimension" />
+        <attr name="lineHeight" format="dimension" />
+        <attr name="textSize" format="dimension" />
+        <attr name="color" format="color" />
+        <attr name="selectedColor" format="color" />
+    </declare-styleable>
 </resources>
