@@ -122,9 +122,12 @@ public class InstallmentView extends View {
     }
 
     private void selectPart(float x) {
-        int position = (int) ((x - pointWidth / 2) / intervalLineWidth);
-        float pointX = pointWidth / 2 + intervalLineWidth * position;
-        if (x > pointX - pointWidth / 2 && x < pointX + pointWidth / 2) {
+        int position = (int) (x / intervalLineWidth);
+        if (selection == position) {
+            return;
+        }
+        float pointEndX = pointWidth + intervalLineWidth * position;
+        if (x < pointEndX) {
             selection = position;
             invalidate();
             if (onSelectPartListener != null) {
