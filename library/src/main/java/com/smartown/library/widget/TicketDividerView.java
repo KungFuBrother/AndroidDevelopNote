@@ -92,43 +92,24 @@ public class TicketDividerView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawLeftEnd(canvas);
-        drawRightEnd(canvas);
+        drawArc(-(height / 2), 0, height / 2, height, -90, canvas);
+        drawArc(width - (height / 2), 0, width + height / 2, height, 90, canvas);
         drawStrokeLine(canvas);
     }
 
-    private void drawLeftEnd(Canvas canvas) {
-        RectF rectF1 = new RectF(-(height / 2), 0, height / 2, height);
-        paint.reset();
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(lineColor);
-        paint.setStrokeWidth(2);
-        canvas.drawArc(rectF1, -90, 180, true, paint);
-
-        RectF rectF2 = new RectF(-(height / 2), 1, height / 2 - 1, height - 1);
+    private void drawArc(float left, float top, float right, float bottom, float startAngle, Canvas canvas) {
         paint.reset();
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(endColor);
-        canvas.drawArc(rectF2, -90, 180, true, paint);
-    }
+        RectF rectF = new RectF(left, top, right, bottom);
+        canvas.drawArc(rectF, startAngle, 180, true, paint);
 
-    private void drawRightEnd(Canvas canvas) {
-        RectF rectF1 = new RectF(width - (height / 2), 0, width + height / 2, height);
-        paint.reset();
-        paint.setAntiAlias(true);
+        Path path = new Path();
+        path.addArc(rectF, startAngle, 180);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(lineColor);
-        paint.setStrokeWidth(2);
-        canvas.drawArc(rectF1, 90, 180, true, paint);
-
-        RectF rectF2 = new RectF(width - (height / 2) + 1, 1, width + height / 2, height - 1);
-        paint.reset();
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(endColor);
-        canvas.drawArc(rectF2, 90, 180, true, paint);
+        canvas.drawPath(path, paint);
     }
 
     /**
