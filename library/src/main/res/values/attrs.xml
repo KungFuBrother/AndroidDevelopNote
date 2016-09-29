@@ -22,4 +22,10 @@
         <attr name="color" format="color" />
         <attr name="selectedColor" format="color" />
     </declare-styleable>
+    <declare-styleable name="TicketDividerView">
+        <attr name="td_endColor" format="color" />
+        <attr name="td_lineColor" format="color" />
+        <attr name="td_lineHeight" format="dimension" />
+        <attr name="td_strokeWidth" format="dimension" />
+    </declare-styleable>
 </resources>

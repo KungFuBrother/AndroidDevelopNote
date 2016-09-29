@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.smartown.library.widget.TicketDividerView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        app:td_endColor="#f0f0f0"
+        app:td_lineColor="#e1e1e1"
+        app:td_lineHeight="1px"
+        app:td_strokeWidth="3dp" />
+
+</FrameLayout>
