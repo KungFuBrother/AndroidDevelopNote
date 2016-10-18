@@ -1,5 +1,8 @@
 package com.smartown.library.widget;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -45,8 +48,12 @@ public class InstallmentView extends View {
     private Paint textPaint;
     private float textHeight;
 
+    private int lastSelection = -1;
     private int selection = -1;
     private OnSelectPartListener onSelectPartListener;
+
+    private ValueAnimator animator;
+    private float animationValue = 0;
 
     public InstallmentView(Context context) {
         super(context);
@@ -80,6 +87,21 @@ public class InstallmentView extends View {
         textPaint.setTextAlign(Paint.Align.CENTER);
         Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
         textHeight = fontMetrics.bottom - fontMetrics.top;
+        animator = ValueAnimator.ofFloat(partWidth, selectedPartWidth);
+        animator.setDuration(200);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                animationValue = (float) valueAnimator.getAnimatedValue();
+                invalidate();
+            }
+        });
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+        });
     }
 
     @Override
@@ -107,6 +129,8 @@ public class InstallmentView extends View {
         for (int i = 0; i < partCount; i++) {
             if (i == selection) {
                 drawSelectedPart(i, canvas);
+            } else if (i == lastSelection) {
+                drawLastSelectedPart(i, canvas);
             } else {
                 drawPart(i, canvas);
             }
@@ -128,8 +152,9 @@ public class InstallmentView extends View {
         }
         float pointEndX = pointWidth + intervalLineWidth * position;
         if (x < pointEndX) {
+            lastSelection = selection;
             selection = position;
-            invalidate();
+            animator.start();
             if (onSelectPartListener != null) {
                 onSelectPartListener.onSelectPart(this, selection);
             }
@@ -158,14 +183,25 @@ public class InstallmentView extends View {
     private void drawSelectedPart(int position, Canvas canvas) {
         float x = pointWidth / 2 + intervalLineWidth * position;
         float y = getHeight() / 2;
-        RectF rectF = new RectF(x - selectedPartWidth / 2,
-                y - selectedPartWidth / 2,
-                x + selectedPartWidth / 2,
-                y + selectedPartWidth / 2);
+        RectF rectF = new RectF(x - animationValue / 2,
+                y - animationValue / 2,
+                x + animationValue / 2,
+                y + animationValue / 2);
         paint.setColor(selectedColor);
         canvas.drawOval(rectF, paint);
         drawNumber(x, position + 1, canvas);
         paint.setColor(color);
+    }
+
+    private void drawLastSelectedPart(int position, Canvas canvas) {
+        float x = pointWidth / 2 + intervalLineWidth * position;
+        float y = getHeight() / 2;
+        RectF rectF = new RectF(x - (selectedPartWidth - animationValue + partWidth) / 2,
+                y - (selectedPartWidth - animationValue + partWidth) / 2,
+                x + (selectedPartWidth - animationValue + partWidth) / 2,
+                y + (selectedPartWidth - animationValue + partWidth) / 2);
+        canvas.drawOval(rectF, paint);
+        drawNumber(x, position + 1, canvas);
     }
 
     private void drawNumber(float x, int number, Canvas canvas) {

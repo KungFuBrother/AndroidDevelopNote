@@ -5,16 +5,17 @@
     android:layout_height="match_parent">
 
     <com.smartown.library.widget.InstallmentView
+        android:id="@+id/installment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
         app:color="@color/colorAccent"
-        app:lineHeight="1dp"
+        app:lineHeight="2dp"
         app:partCount="12"
-        app:partWidth="16dp"
+        app:partWidth="20dp"
         app:selectedColor="@color/colorPrimary"
-        app:selectedPartWidth="16dp"
+        app:selectedPartWidth="24dp"
         app:textSize="10dp" />
 
 </FrameLayout>
