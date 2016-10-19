@@ -40,7 +40,7 @@ public class InstallmentView extends View {
     private float lineHeight = 4;
     private float textSize = 24;
 
-    private int animationDuration = 2000;
+    private int animationDuration = 400;
 
     private float pointWidth;
     private float pointArea;
@@ -139,13 +139,6 @@ public class InstallmentView extends View {
         for (int i = 0; i < partCount; i++) {
             drawNumber(i, canvas);
         }
-//        if (i == selection) {
-//            drawSelectedPart(i, canvas);
-//        } else if (i == lastSelection) {
-//            drawLastSelectedPart(i, canvas);
-//        } else {
-//            drawPart(i, canvas);
-//        }
     }
 
     @Override
@@ -163,12 +156,16 @@ public class InstallmentView extends View {
         }
         float pointEndX = pointWidth + intervalLineWidth * position;
         if (x < pointEndX) {
-            lastSelection = selection;
-            selection = position;
-            animator.start();
-            if (onSelectPartListener != null) {
-                onSelectPartListener.onSelectPart(this, selection);
-            }
+            setSelection(position);
+        }
+    }
+
+    public void setSelection(int selection) {
+        lastSelection = this.selection;
+        this.selection = selection;
+        animator.start();
+        if (onSelectPartListener != null) {
+            onSelectPartListener.onSelectPart(this, selection);
         }
     }
 
