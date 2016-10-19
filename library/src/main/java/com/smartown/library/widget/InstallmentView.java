@@ -122,7 +122,7 @@ public class InstallmentView extends View {
         }
         lineWidth = width - pointWidth;
         intervalLineWidth = lineWidth / (partCount - 1);
-        pointArea = (float) (Math.PI * Math.pow(pointWidth / 2, 2));
+        pointArea = (float) (Math.PI * Math.pow(selectedPartWidth / 2, 2));
         setMeasuredDimension((int) width, (int) height);
     }
 

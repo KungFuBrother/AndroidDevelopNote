@@ -90,7 +90,7 @@ public class IndicatorView extends View {
             typedArray.recycle();
         }
         nodeWidth = Math.max(pointWidth, selectedPointWidth);
-        pointArea = (float) (Math.PI * Math.pow(nodeWidth / 2, 2));
+        pointArea = (float) (Math.PI * Math.pow(selectedPointWidth / 2, 2));
         initPaint();
         initTextPaint();
         initAnimator();

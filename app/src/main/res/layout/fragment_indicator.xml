@@ -16,9 +16,9 @@
         app:IndicatorView_hideNumber="true"
         app:IndicatorView_lineHeight="4dp"
         app:IndicatorView_pointColor="#c9c9c9"
-        app:IndicatorView_pointWidth="20dp"
-        app:IndicatorView_selectedPointColor="#ff5722"
-        app:IndicatorView_selectedPointWidth="24dp"
+        app:IndicatorView_pointWidth="24dp"
+        app:IndicatorView_selectedPointColor="@color/white"
+        app:IndicatorView_selectedPointWidth="12dp"
         app:IndicatorView_textSize="10dp" />
 
 </FrameLayout>
