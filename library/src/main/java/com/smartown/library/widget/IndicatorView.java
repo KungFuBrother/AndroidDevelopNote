@@ -47,7 +47,8 @@ public class IndicatorView extends View {
     private int animationMode = 0;
     private int animationDuration = 400;
 
-    private boolean hideNumber = true;
+    private boolean showLine = false;
+    private boolean showNumber = false;
 
     private float nodeWidth;
     private float pointArea;
@@ -86,7 +87,8 @@ public class IndicatorView extends View {
             textSize = typedArray.getDimensionPixelSize(R.styleable.IndicatorView_IndicatorView_textSize, 24);
             animationMode = typedArray.getInt(R.styleable.IndicatorView_IndicatorView_animationMode, 0);
             animationDuration = typedArray.getInt(R.styleable.IndicatorView_IndicatorView_animationDuration, 400);
-            hideNumber = typedArray.getBoolean(R.styleable.IndicatorView_IndicatorView_hideNumber, true);
+            showLine = typedArray.getBoolean(R.styleable.IndicatorView_IndicatorView_showLine, false);
+            showNumber = typedArray.getBoolean(R.styleable.IndicatorView_IndicatorView_showNumber, false);
             typedArray.recycle();
         }
         nodeWidth = Math.max(pointWidth, selectedPointWidth);
@@ -189,14 +191,16 @@ public class IndicatorView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawLine(canvas);
+        paint.setColor(pointColor);
+        if (showLine) {
+            drawLine(canvas);
+        }
         for (int i = 0; i < count; i++) {
             drawPoint(i, canvas);
         }
         paint.setColor(selectedPointColor);
         drawAnimation(canvas);
-        paint.setColor(pointColor);
-        if (!hideNumber) {
+        if (showNumber) {
             for (int i = 0; i < count; i++) {
                 drawNumber(i, canvas);
             }
@@ -204,7 +208,6 @@ public class IndicatorView extends View {
     }
 
     private void drawLine(Canvas canvas) {
-        paint.setColor(pointColor);
         canvas.drawRect(nodeWidth / 2,
                 (getHeight() - lineHeight) / 2,
                 getWidth() - nodeWidth / 2,

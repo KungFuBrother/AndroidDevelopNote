@@ -12,13 +12,14 @@
         android:layout_margin="16dp"
         app:IndicatorView_animationDuration="400"
         app:IndicatorView_animationMode="none"
-        app:IndicatorView_count="8"
-        app:IndicatorView_hideNumber="true"
-        app:IndicatorView_lineHeight="4dp"
+        app:IndicatorView_count="10"
+        app:IndicatorView_lineHeight="2dp"
         app:IndicatorView_pointColor="#c9c9c9"
-        app:IndicatorView_pointWidth="24dp"
+        app:IndicatorView_pointWidth="20dp"
         app:IndicatorView_selectedPointColor="@color/white"
         app:IndicatorView_selectedPointWidth="12dp"
-        app:IndicatorView_textSize="10dp" />
+        app:IndicatorView_showLine="false"
+        app:IndicatorView_showNumber="false"
+        app:IndicatorView_textSize="8dp" />
 
 </FrameLayout>

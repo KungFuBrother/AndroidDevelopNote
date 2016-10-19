@@ -36,7 +36,8 @@
             <enum name="flow" value="2" />
         </attr>
         <attr name="IndicatorView_animationDuration" format="integer" />
-        <attr name="IndicatorView_hideNumber" format="boolean" />
+        <attr name="IndicatorView_showLine" format="boolean" />
+        <attr name="IndicatorView_showNumber" format="boolean" />
     </declare-styleable>
     <declare-styleable name="TicketDividerView">
         <attr name="td_endColor" format="color" />
