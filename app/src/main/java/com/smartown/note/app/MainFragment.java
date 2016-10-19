@@ -59,6 +59,7 @@ public class MainFragment extends BaseFragment {
         menuItems.add(new ModelMenuItem(1, "BingFragment", BingFragment.class.getName()));
         menuItems.add(new ModelMenuItem(1, "LEDFragment", LEDFragment.class.getName()));
         menuItems.add(new ModelMenuItem(1, "InstallmentFragment", InstallmentFragment.class.getName()));
+        menuItems.add(new ModelMenuItem(1, "IndicatorFragment", IndicatorFragment.class.getName()));
 //        CommonAdapter adapter = new CommonAdapter(getActivity(), menuItems);
 //        adapter.setValueGetter(valueGetter);
 //        adapter.setOnItemClickListener(this);

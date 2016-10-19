@@ -22,6 +22,22 @@
         <attr name="color" format="color" />
         <attr name="selectedColor" format="color" />
     </declare-styleable>
+    <declare-styleable name="IndicatorView">
+        <attr name="IndicatorView_count" format="integer" />
+        <attr name="IndicatorView_pointWidth" format="dimension" />
+        <attr name="IndicatorView_pointColor" format="color" />
+        <attr name="IndicatorView_selectedPointWidth" format="dimension" />
+        <attr name="IndicatorView_selectedPointColor" format="color" />
+        <attr name="IndicatorView_lineHeight" format="dimension" />
+        <attr name="IndicatorView_textSize" format="dimension" />
+        <attr name="IndicatorView_animationMode">
+            <enum name="none" value="0" />
+            <enum name="scale" value="1" />
+            <enum name="flow" value="2" />
+        </attr>
+        <attr name="IndicatorView_animationDuration" format="integer" />
+        <attr name="IndicatorView_hideNumber" format="boolean" />
+    </declare-styleable>
     <declare-styleable name="TicketDividerView">
         <attr name="td_endColor" format="color" />
         <attr name="td_lineColor" format="color" />
