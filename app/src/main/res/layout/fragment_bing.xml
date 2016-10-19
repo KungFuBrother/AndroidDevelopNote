@@ -11,14 +11,4 @@
         android:layout_margin="16dp"
         app:strokeWidth="2dp" />
 
-    <com.smartown.library.widget.MyTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        app:tv_lineNumber="4"
-        app:tv_text="@string/article"
-        app:tv_textColor="#555555"
-        app:tv_textSize="16dp" />
-
 </FrameLayout>

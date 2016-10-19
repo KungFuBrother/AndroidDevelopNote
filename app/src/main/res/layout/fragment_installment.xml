@@ -10,11 +10,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        app:color="@color/colorAccent"
-        app:lineHeight="2dp"
-        app:partCount="12"
+        app:color="#c9c9c9"
+        app:lineHeight="4dp"
+        app:partCount="8"
         app:partWidth="20dp"
-        app:selectedColor="@color/colorPrimary"
+        app:selectedColor="@color/navigation_bar_background"
         app:selectedPartWidth="24dp"
         app:textSize="10dp" />
 

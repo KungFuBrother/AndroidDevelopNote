@@ -40,7 +40,10 @@ public class InstallmentView extends View {
     private float lineHeight = 4;
     private float textSize = 24;
 
+    private int animationDuration = 2000;
+
     private float pointWidth;
+    private float pointArea;
     private float lineWidth;
     private float intervalLineWidth;
 
@@ -87,8 +90,8 @@ public class InstallmentView extends View {
         textPaint.setTextAlign(Paint.Align.CENTER);
         Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
         textHeight = fontMetrics.bottom - fontMetrics.top;
-        animator = ValueAnimator.ofFloat(partWidth, selectedPartWidth);
-        animator.setDuration(200);
+        animator = ValueAnimator.ofFloat(0, animationDuration);
+        animator.setDuration(animationDuration);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -119,6 +122,7 @@ public class InstallmentView extends View {
         }
         lineWidth = width - pointWidth;
         intervalLineWidth = lineWidth / (partCount - 1);
+        pointArea = (float) (Math.PI * Math.pow(pointWidth / 2, 2));
         setMeasuredDimension((int) width, (int) height);
     }
 
@@ -127,14 +131,21 @@ public class InstallmentView extends View {
         super.onDraw(canvas);
         drawLine(canvas);
         for (int i = 0; i < partCount; i++) {
-            if (i == selection) {
-                drawSelectedPart(i, canvas);
-            } else if (i == lastSelection) {
-                drawLastSelectedPart(i, canvas);
-            } else {
-                drawPart(i, canvas);
-            }
+            drawPart(i, canvas);
         }
+        paint.setColor(selectedColor);
+        drawAnimation(canvas);
+        paint.setColor(color);
+        for (int i = 0; i < partCount; i++) {
+            drawNumber(i, canvas);
+        }
+//        if (i == selection) {
+//            drawSelectedPart(i, canvas);
+//        } else if (i == lastSelection) {
+//            drawLastSelectedPart(i, canvas);
+//        } else {
+//            drawPart(i, canvas);
+//        }
     }
 
     @Override
@@ -177,35 +188,120 @@ public class InstallmentView extends View {
                 x + partWidth / 2,
                 y + partWidth / 2);
         canvas.drawOval(rectF, paint);
-        drawNumber(x, position + 1, canvas);
     }
 
-    private void drawSelectedPart(int position, Canvas canvas) {
+    private void drawAnimation(Canvas canvas) {
+        if (lastSelection == -1) {
+            drawSelectedPart(selection, (float) Math.sqrt(pointArea / animationDuration * animationValue / Math.PI) * 2, canvas);
+            return;
+        }
+        final float linkLineArea = Math.abs(lastSelection - selection) * intervalLineWidth * lineHeight;
+        final float animationSpeed = (pointArea + linkLineArea) / animationDuration;
+        final float animatedArea = animationSpeed * animationValue;
+        float lastPointArea = 0;
+        float lineArea = 0;
+        float nextPointArea = 0;
+        if (linkLineArea >= pointArea) {
+            if (animatedArea >= pointArea) {
+                if (animatedArea >= linkLineArea) {
+                    nextPointArea = animatedArea - linkLineArea;
+                    lineArea = pointArea - nextPointArea;
+                } else {
+                    //选中部分全在连接线上
+                    lineArea = pointArea;
+                }
+            } else {
+                lastPointArea = pointArea - animatedArea;
+                lineArea = animatedArea;
+            }
+        } else {
+//            linkLineArea < pointArea
+            if (animatedArea >= linkLineArea) {
+                if (animatedArea >= pointArea) {
+                    nextPointArea = animatedArea - linkLineArea;
+                    lineArea = pointArea - nextPointArea;
+                } else {
+                    lastPointArea = pointArea - animatedArea;
+                    lineArea = linkLineArea;
+                    nextPointArea = animatedArea - linkLineArea;
+                }
+            } else {
+                lastPointArea = pointArea - animatedArea;
+                lineArea = animatedArea;
+            }
+        }
+        System.out.println("animate/" + pointArea + "/" + linkLineArea + "/" + animationValue + "/" + lastPointArea + "/" + lineArea + "/" + nextPointArea);
+        if (lastPointArea > 0) {
+            final float lastPointWidth = (float) Math.sqrt(lastPointArea / Math.PI) * 2;
+            drawSelectedPart(lastSelection, lastPointWidth, canvas);
+        }
+        if (nextPointArea > 0) {
+            final float nextPointWidth = (float) Math.sqrt(nextPointArea / Math.PI) * 2;
+            drawSelectedPart(selection, nextPointWidth, canvas);
+        }
+        if (lineArea > 0) {
+            if (lineArea >= linkLineArea) {
+                final float left = pointWidth / 2 + intervalLineWidth * Math.min(lastSelection, selection);
+                final float right = pointWidth / 2 + intervalLineWidth * Math.max(lastSelection, selection);
+                drawSelectedLine(left, right, canvas);
+            } else {
+                if (animatedArea < linkLineArea) {
+                    if (animatedArea > lineArea) {
+                        if (selection > lastSelection) {
+                            final float right = pointWidth / 2 + intervalLineWidth * lastSelection + (animatedArea / lineHeight);
+                            final float left = right - (lineArea / lineHeight);
+                            drawSelectedLine(left, right, canvas);
+                        } else {
+                            final float left = pointWidth / 2 + intervalLineWidth * lastSelection - (animatedArea / lineHeight);
+                            final float right = left + (lineArea / lineHeight);
+                            drawSelectedLine(left, right, canvas);
+                        }
+                    } else {
+                        if (selection > lastSelection) {
+                            final float left = pointWidth / 2 + intervalLineWidth * lastSelection;
+                            final float right = left + (lineArea / lineHeight);
+                            drawSelectedLine(left, right, canvas);
+                        } else {
+                            final float right = pointWidth / 2 + intervalLineWidth * lastSelection;
+                            final float left = right - (lineArea / lineHeight);
+                            drawSelectedLine(left, right, canvas);
+                        }
+                    }
+                } else {
+                    if (selection > lastSelection) {
+                        final float right = pointWidth / 2 + intervalLineWidth * selection;
+                        final float left = right - (lineArea / lineHeight);
+                        drawSelectedLine(left, right, canvas);
+                    } else {
+                        final float left = pointWidth / 2 + intervalLineWidth * selection;
+                        final float right = left + (lineArea / lineHeight);
+                        drawSelectedLine(left, right, canvas);
+                    }
+                }
+            }
+        }
+    }
+
+    private void drawSelectedPart(int position, float width, Canvas canvas) {
         float x = pointWidth / 2 + intervalLineWidth * position;
         float y = getHeight() / 2;
-        RectF rectF = new RectF(x - animationValue / 2,
-                y - animationValue / 2,
-                x + animationValue / 2,
-                y + animationValue / 2);
-        paint.setColor(selectedColor);
+        RectF rectF = new RectF(x - width / 2,
+                y - width / 2,
+                x + width / 2,
+                y + width / 2);
         canvas.drawOval(rectF, paint);
-        drawNumber(x, position + 1, canvas);
-        paint.setColor(color);
     }
 
-    private void drawLastSelectedPart(int position, Canvas canvas) {
+    private void drawSelectedLine(float left, float right, Canvas canvas) {
+        canvas.drawRect(left,
+                (getHeight() - lineHeight) / 2,
+                right,
+                (getHeight() + lineHeight) / 2, paint);
+    }
+
+    private void drawNumber(int position, Canvas canvas) {
         float x = pointWidth / 2 + intervalLineWidth * position;
-        float y = getHeight() / 2;
-        RectF rectF = new RectF(x - (selectedPartWidth - animationValue + partWidth) / 2,
-                y - (selectedPartWidth - animationValue + partWidth) / 2,
-                x + (selectedPartWidth - animationValue + partWidth) / 2,
-                y + (selectedPartWidth - animationValue + partWidth) / 2);
-        canvas.drawOval(rectF, paint);
-        drawNumber(x, position + 1, canvas);
-    }
-
-    private void drawNumber(float x, int number, Canvas canvas) {
-        canvas.drawText(number + "", x, (getHeight() + textHeight / 2) / 2, textPaint);
+        canvas.drawText((position + 1) + "", x, (getHeight() + textHeight / 2) / 2, textPaint);
     }
 
     public void setOnSelectPartListener(OnSelectPartListener onSelectPartListener) {

@@ -7,7 +7,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        Tool.jump(MainActivity.this, getString(R.string.app_name), InstallmentFragment.class);
+        Tool.jump(MainActivity.this, getString(R.string.app_name), MainFragment.class);
         finish();
     }
 

@@ -1,7 +1,5 @@
 package com.smartown.note.app;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +29,6 @@ public class MainFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         showApps();
-//        showRunningAppProcessInfo();
     }
 
     @Override
@@ -58,7 +55,10 @@ public class MainFragment extends BaseFragment {
         menuItems.add(new ModelMenuItem(0, "MVC", "com.smartown.note.mvc"));
         menuItems.add(new ModelMenuItem(0, "MVP", "com.smartown.note.mvp"));
         menuItems.add(new ModelMenuItem(0, "MVVM", "com.smartown.note.mvvm"));
-        menuItems.add(new ModelMenuItem(1, "饼状图", BingFragment.class.getName()));
+        menuItems.add(new ModelMenuItem(1, "RunningAppFragment", RunningAppFragment.class.getName()));
+        menuItems.add(new ModelMenuItem(1, "BingFragment", BingFragment.class.getName()));
+        menuItems.add(new ModelMenuItem(1, "LEDFragment", LEDFragment.class.getName()));
+        menuItems.add(new ModelMenuItem(1, "InstallmentFragment", InstallmentFragment.class.getName()));
 //        CommonAdapter adapter = new CommonAdapter(getActivity(), menuItems);
 //        adapter.setValueGetter(valueGetter);
 //        adapter.setOnItemClickListener(this);
@@ -116,35 +116,4 @@ public class MainFragment extends BaseFragment {
         recyclerView.setAdapter(adapter.getBasicAdapter());
     }
 
-    private void showRunningAppProcessInfo() {
-        final ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-        final List<ActivityManager.RunningAppProcessInfo> processes = activityManager.getRunningAppProcesses();
-        SimpleTextAdapter adapter = new SimpleTextAdapter(getActivity());
-        adapter.setValueGetter(new SimpleTextAdapter.ValueGetter() {
-
-            @Override
-            public String getValue(int position) {
-                return processes.get(position).processName;
-            }
-
-            @Override
-            public int getColor(int position) {
-                return Color.BLACK;
-            }
-
-            @Override
-            public int getSize() {
-                return processes.size();
-            }
-
-        });
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                ActivityManager.RunningAppProcessInfo processInfo = processes.get(position);
-                Tool.startApp(getActivity(), processInfo.processName);
-            }
-        });
-        recyclerView.setAdapter(adapter.getBasicAdapter());
-    }
 }
